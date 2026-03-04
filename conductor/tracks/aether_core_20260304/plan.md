@@ -10,9 +10,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Data Layer' (Protocol in workflow.md) 007898c
 
 ## Phase 2: Authentication & Admin Initialization
-- [~] Task: Implement Authentication (Clerk/Auth0).
-    - [ ] Integrate Social Login (Google/Facebook).
-    - [ ] Create Role-based access control (Admin vs. User).
+- [x] Task: Implement Authentication (Clerk/Auth0). 948d4b1
+    - [x] Integrate Social Login (Google/Facebook).
+    - [x] Create Role-based access control (Admin vs. User).
 - [ ] Task: Secure Admin Initialization.
     - [ ] Generate default Admin password and store securely in .env.
     - [ ] Create Admin login flow with the default credentials.
