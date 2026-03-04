@@ -1,9 +1,9 @@
 # Implementation Plan: Aether Core & Admin Command Center
 
 ## Phase 1: Foundation & Data Layer
-- [~] Task: Set up Next.js and Express development environments.
-    - [ ] Initialize Next.js with TypeScript and Vanilla CSS.
-    - [ ] Initialize Express with TypeScript and Drizzle ORM.
+- [x] Task: Set up Next.js and Express development environments. 74296bd
+    - [x] Initialize Next.js with TypeScript and Vanilla CSS.
+    - [x] Initialize Express with TypeScript and Drizzle ORM.
 - [ ] Task: Configure PostgreSQL database schema.
     - [ ] Define schemas for Users, Products, and Orders with Drizzle.
     - [ ] Implement Zod validation for all data entities.
