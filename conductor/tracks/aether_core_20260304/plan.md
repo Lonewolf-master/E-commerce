@@ -4,9 +4,9 @@
 - [x] Task: Set up Next.js and Express development environments. 74296bd
     - [x] Initialize Next.js with TypeScript and Vanilla CSS.
     - [x] Initialize Express with TypeScript and Drizzle ORM.
-- [~] Task: Configure PostgreSQL database schema.
-    - [ ] Define schemas for Users, Products, and Orders with Drizzle.
-    - [ ] Implement Zod validation for all data entities.
+- [x] Task: Configure PostgreSQL database schema. 114c731
+    - [x] Define schemas for Users, Products, and Orders with Drizzle.
+    - [x] Implement Zod validation for all data entities.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Data Layer' (Protocol in workflow.md)
 
 ## Phase 2: Authentication & Admin Initialization
