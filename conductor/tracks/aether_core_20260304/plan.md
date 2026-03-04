@@ -13,7 +13,7 @@
 - [x] Task: Implement Authentication (Clerk/Auth0). 948d4b1
     - [x] Integrate Social Login (Google/Facebook).
     - [x] Create Role-based access control (Admin vs. User).
-- [ ] Task: Secure Admin Initialization.
+- [~] Task: Secure Admin Initialization.
     - [ ] Generate default Admin password and store securely in .env.
     - [ ] Create Admin login flow with the default credentials.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Authentication & Admin Initialization' (Protocol in workflow.md)
