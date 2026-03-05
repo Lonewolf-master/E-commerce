@@ -10,9 +10,12 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Data Layer' (Protocol in workflow.md) 007898c
 
 ## Phase 2: Authentication & Admin Initialization
-- [x] Task: Implement Authentication (Clerk/Auth0). 948d4b1
-    - [x] Integrate Social Login (Google/Facebook).
-    - [x] Create Role-based access control (Admin vs. User).
+- [~] Task: Implement Custom JWT Authentication.
+    - [ ] Remove Clerk dependencies and configuration.
+    - [ ] Update User schema (add password hash field).
+    - [ ] Implement Register & Login endpoints (bcrypt + JWT).
+    - [ ] Create Custom Authentication Middleware.
+    - [ ] Build Frontend Login/Register Forms.
 - [x] Task: Secure Admin Initialization. b04e609
     - [x] Generate default Admin password and store securely in .env.
     - [x] Create Admin login flow with the default credentials.
