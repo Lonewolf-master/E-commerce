@@ -22,7 +22,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Authentication & Admin Initialization' (Protocol in workflow.md) e2023df
 
 ## Phase 3: Spatial E-commerce (3D & AI)
-- [ ] Task: Create the 3D Product Stage (Three.js/R3F).
+- [~] Task: Create the 3D Product Stage (Three.js/R3F).
     - [ ] Implement 360° rotation and zoom for product models.
     - [ ] Add hotspot technical specs in glassmorphic bubbles.
 - [ ] Task: Build the "Aether Concierge" (Gemini API).

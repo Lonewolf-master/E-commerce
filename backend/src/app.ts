@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import adminRouter from './routes/admin';
 import authRouter from './routes/auth';
+import aiRouter from './routes/ai';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/admin', adminRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/ai', aiRouter);
 
 // Basic Health Check Route
 app.get('/health', (req: Request, res: Response) => {

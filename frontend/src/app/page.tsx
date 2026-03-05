@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ProductStage from '../components/3d/ProductStage';
+import AetherConcierge from '../components/AetherConcierge';
 
 const GADGET_HEROES = [
   {
@@ -35,8 +37,10 @@ export default function Home() {
   const [name, setName] = useState('');
   const [statusMsg, setStatusMsg] = useState({ text: '', type: 'error' as 'error' | 'success' });
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const token = localStorage.getItem('token');
     if (token) fetchUser(token);
 
@@ -165,23 +169,52 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="py-40 px-8 bg-zinc-50 dark:bg-[#0a0a0a]">
-        <div className="max-w-5xl mx-auto text-center">
-          <h3 className="text-5xl md:text-8xl font-bold tracking-tight mb-12">The future is personal.</h3>
-          <p className="text-2xl md:text-3xl text-zinc-500 dark:text-zinc-400 font-medium leading-tight max-w-3xl mx-auto">
-            Aether uses neural-matching to curate the world's most advanced technology specifically for your workflow. No searching. Just discovery.
-          </p>
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+          <div className="relative h-[600px] w-full">
+            {mounted ? <ProductStage /> : <div className="w-full h-full bg-zinc-900 rounded-[3rem] animate-pulse" />}
+          </div>
+          <div className="space-y-8">
+            <h3 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight text-zinc-900 dark:text-white">Where Silicon meets Soul.</h3>
+            <p className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">
+              Aether uses neural-matching to curate the world's most advanced technology specifically for your workflow. No searching. Just discovery.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Store Section */}
+      <section id="store" className="py-40 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-24">
+            <h3 className="text-5xl md:text-8xl font-bold tracking-tight">Current Inventory.</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              { name: 'AetherBook M3', price: '$2,499', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8' },
+              { name: 'AetherPhone 15', price: '$1,199', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9' },
+              { name: 'Aether Lens Pro', price: '$3,499', img: 'https://images.unsplash.com/photo-1478416402414-f41e53fc264e' }
+            ].map((prod, i) => (
+              <div key={i} className="group cursor-pointer">
+                <div className="aspect-square overflow-hidden rounded-[40px] bg-zinc-100 dark:bg-zinc-900 mb-8">
+                  <img src={prod.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={prod.name} />
+                </div>
+                <h4 className="text-xl font-bold mb-1">{prod.name}</h4>
+                <p className="text-zinc-500 dark:text-zinc-400 font-medium">{prod.price}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Reviews */}
-      <section id="reviews" className="py-40 px-8">
+      <section id="reviews" className="py-40 px-8 bg-zinc-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
           {REVIEWS.map((rev, i) => (
             <div key={i} className="space-y-6">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => <div key={i} className="w-3 h-3 bg-zinc-200 dark:bg-zinc-800 rounded-full" />)}
               </div>
-              <p className="text-2xl font-semibold leading-tight tracking-tight">"{rev.content}"</p>
+              <p className="text-2xl font-semibold leading-tight tracking-tight text-zinc-900 dark:text-white">"{rev.content}"</p>
               <div>
                 <h5 className="font-bold text-sm uppercase tracking-widest">{rev.name}</h5>
                 <p className="text-xs text-zinc-400 font-medium">{rev.role}</p>
@@ -193,17 +226,15 @@ export default function Home() {
 
       {/* Ethereal Auth Overlay */}
       <div className={`fixed inset-0 z-[200] transition-all duration-1000 ${showAuth ? 'visible' : 'invisible'}`}>
-        {/* Apple Blur Backdrop */}
         <div 
           onClick={() => setShowAuth(false)} 
           className={`absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-[80px] transition-opacity duration-1000 ${showAuth ? 'opacity-100' : 'opacity-0'}`} 
         />
         
-        {/* Centered Minimal Card */}
         <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${showAuth ? 'opacity-100 translate-y-[-50%]' : 'opacity-0 translate-y-[-40%]'}`}>
           <div className="bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-2xl rounded-[40px] border border-zinc-200/50 dark:border-zinc-800/50 p-12 shadow-[0_32px_128px_rgba(0,0,0,0.1)]">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold tracking-tight mb-3">
+              <h2 className="text-4xl font-bold tracking-tight mb-3 text-zinc-900 dark:text-white">
                 {authMode === 'login' ? 'Sign In' : 'Create ID'}
               </h2>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium tracking-tight">
@@ -217,7 +248,7 @@ export default function Home() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium"
+                  className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium text-zinc-900 dark:text-white"
                   placeholder="Full Name"
                   required
                 />
@@ -226,7 +257,7 @@ export default function Home() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium"
+                className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium text-zinc-900 dark:text-white"
                 placeholder="Email address"
                 required
               />
@@ -234,7 +265,7 @@ export default function Home() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium"
+                className="w-full h-[56px] px-6 rounded-2xl bg-zinc-100/50 dark:bg-zinc-800/50 border border-transparent focus:border-blue-500/50 transition-all outline-none text-base font-medium text-zinc-900 dark:text-white"
                 placeholder="Password"
                 required
               />
@@ -261,10 +292,10 @@ export default function Home() {
 
             <div className="flex gap-4 mb-10">
                <button className="flex-1 h-[50px] rounded-xl border border-zinc-200/50 dark:border-zinc-800/50 flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                  <span className="text-xs font-bold uppercase tracking-widest">Google</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-zinc-900 dark:text-white">Google</span>
                </button>
                <button className="flex-1 h-[50px] rounded-xl border border-zinc-200/50 dark:border-zinc-800/50 flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                  <span className="text-xs font-bold uppercase tracking-widest">Apple</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-zinc-900 dark:text-white">Apple</span>
                </button>
             </div>
 
@@ -285,7 +316,7 @@ export default function Home() {
       <footer className="py-24 px-12 border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-20">
           <div className="max-w-xs">
-            <h4 className="text-xl font-bold mb-6 tracking-tight">AETHER</h4>
+            <h4 className="text-xl font-bold mb-6 tracking-tight text-zinc-900 dark:text-white">AETHER</h4>
             <p className="text-zinc-400 text-sm font-medium leading-relaxed">Designing the future of interaction through the lens of artificial intelligence. Based in Cupertino, available everywhere.</p>
           </div>
           <div className="flex gap-24">
@@ -302,6 +333,8 @@ export default function Home() {
            © 2026 AETHER SYSTEMS. ALL RIGHTS RESERVED.
         </div>
       </footer>
+
+      <AetherConcierge />
 
       <style jsx global>{`
         @font-face {
