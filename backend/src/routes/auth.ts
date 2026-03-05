@@ -4,6 +4,7 @@ import { users } from '../db/schema';
 import { hashPassword, comparePassword, generateToken } from '../utils/auth';
 import { eq } from 'drizzle-orm';
 import { userSchema } from '../models/schema';
+import { authenticate, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
@@ -68,6 +69,29 @@ router.post('/login', async (req: Request, res: Response) => {
     const token = generateToken({ userId: user.id, role: user.role });
 
     res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Me Route (Protected)
+router.get('/me', authenticate, async (req: AuthRequest, res: Response) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, req.user.userId),
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { passwordHash, ...userWithoutPassword } = user;
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
