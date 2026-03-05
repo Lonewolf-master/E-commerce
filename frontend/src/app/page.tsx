@@ -47,6 +47,7 @@ export default function Home() {
   const containerRef = useRef(null);
   const specRef = useRef(null);
   const productRef = useRef(null);
+  const cartRef = useRef<HTMLDivElement>(null);
 
   // Form States
   const [email, setEmail] = useState('');
@@ -114,6 +115,73 @@ export default function Home() {
     };
   }, []);
 
+  // Magnetic Effect Logic
+  const handleMagneticMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    gsap.to(card, {
+      x: x * 0.15,
+      y: y * 0.15,
+      rotateX: -y * 0.05,
+      rotateY: x * 0.05,
+      duration: 0.5,
+      ease: 'power2.out',
+    });
+  };
+
+  const handleMagneticLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      x: 0,
+      y: 0,
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.3)',
+    });
+  };
+
+  // Fly-to-Cart Animation
+  const handleFlyToCart = (e: React.MouseEvent, imgUrl: string) => {
+    const btn = e.currentTarget as HTMLElement;
+    const rect = btn.getBoundingClientRect();
+    const cartRect = cartRef.current?.getBoundingClientRect();
+
+    if (!cartRect) return;
+
+    // Create fly element
+    const fly = document.createElement('div');
+    fly.className = 'fixed z-[200] pointer-events-none rounded-full overflow-hidden border-2 border-white shadow-2xl';
+    fly.style.width = '60px';
+    fly.style.height = '60px';
+    fly.style.left = `${rect.left}px`;
+    fly.style.top = `${rect.top}px`;
+    fly.style.backgroundImage = `url(${imgUrl})`;
+    fly.style.backgroundSize = 'cover';
+    document.body.appendChild(fly);
+
+    // GSAP Fly Animation
+    gsap.to(fly, {
+      left: cartRect.left + cartRect.width / 2 - 30,
+      top: cartRect.top + cartRect.height / 2 - 30,
+      scale: 0.2,
+      opacity: 0.5,
+      duration: 1,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        document.body.removeChild(fly);
+        gsap.to(cartRef.current, {
+          scale: 1.3,
+          duration: 0.2,
+          yoyo: true,
+          repeat: 1,
+        });
+      }
+    });
+  };
+
   const fetchUser = async (token: string) => {
     try {
       const res = await fetch('http://localhost:8080/api/auth/me', {
@@ -171,7 +239,7 @@ export default function Home() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-white dark:bg-[#050505] text-black dark:text-white font-sans selection:bg-blue-100 dark:selection:bg-blue-900/20">
+    <div ref={containerRef} className="min-h-screen bg-white dark:bg-[#050505] text-black dark:text-white font-sans selection:bg-blue-100 dark:selection:bg-blue-900/20 perspective-1000">
       
       {/* Apple-Style Navigation */}
       <nav className={`fixed top-0 w-full z-[100] transition-all duration-700 ${isScrolled || showAuth ? 'bg-white/80 dark:bg-black/80 backdrop-blur-2xl border-b border-zinc-200/40 dark:border-zinc-800/40' : 'bg-transparent'}`}>
@@ -191,7 +259,7 @@ export default function Home() {
 
           <div className="flex items-center gap-6">
             {user ? (
-              <div className="flex items-center gap-5">
+              <div ref={cartRef} className="flex items-center gap-5">
                 <div className="flex flex-col items-end">
                   <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 tracking-tight uppercase">Elite Member</span>
                   <span className="text-xs font-semibold">{user.name}</span>
@@ -199,9 +267,11 @@ export default function Home() {
                 <button onClick={handleLogout} className="text-[10px] font-black uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white transition-all">Sign Out</button>
               </div>
             ) : (
-              <button onClick={() => { setShowAuth(true); setAuthMode('login'); }} className="text-xs font-black uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all shadow-xl">
-                Sign In
-              </button>
+              <div ref={cartRef}>
+                <button onClick={() => { setShowAuth(true); setAuthMode('login'); }} className="text-xs font-black uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all shadow-xl">
+                  Sign In
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -227,8 +297,6 @@ export default function Home() {
           </div>
         ))}
       </header>
-
-      {/* RENOVATION STARTS HERE */}
 
       {/* Ultra Tech Specs Section */}
       <section id="specs" ref={specRef} className="py-40 px-8 bg-white dark:bg-[#050505]">
@@ -270,7 +338,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Inventory Grid Section */}
+      {/* Inventory Grid Section with Magnetic Physics */}
       <section id="store" ref={productRef} className="py-40 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-end justify-between mb-24 px-4">
@@ -284,11 +352,21 @@ export default function Home() {
               { name: 'AetherPhone 15 Pro', price: '$1,199', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9' },
               { name: 'Aether Lens Pro', price: '$3,499', img: 'https://images.unsplash.com/photo-1478416402414-f41e53fc264e' }
             ].map((prod, i) => (
-              <div key={i} className="product-card group cursor-pointer">
+              <div 
+                key={i} 
+                className="product-card group cursor-pointer"
+                onMouseMove={handleMagneticMove}
+                onMouseLeave={handleMagneticLeave}
+              >
                 <div className="aspect-[4/5] overflow-hidden rounded-[60px] bg-zinc-100 dark:bg-zinc-900 mb-10 relative">
                   <img src={prod.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={prod.name} />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                     <button className="bg-white text-black px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-transform">Synchronize</button>
+                     <button 
+                        onClick={(e) => handleFlyToCart(e, prod.img)}
+                        className="bg-white text-black px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-transform"
+                      >
+                        Synchronize
+                      </button>
                   </div>
                 </div>
                 <h4 className="text-3xl font-bold mb-2 tracking-tighter">{prod.name}</h4>
@@ -439,6 +517,9 @@ export default function Home() {
         body {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
           -webkit-font-smoothing: antialiased;
+        }
+        .perspective-1000 {
+          perspective: 1000px;
         }
       `}</style>
     </div>

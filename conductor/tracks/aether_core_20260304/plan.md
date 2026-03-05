@@ -28,9 +28,9 @@
 - [x] Task: Build the "Aether Concierge" (Gemini API). a993ce4
     - [x] Implement Natural Language search portal.
     - [x] Integrate Gemini API for curated product recommendations.
-- [ ] Task: Add GSAP Micro-interactions.
-    - [ ] Create "Unboxing" and "Fly-to-Cart" animations.
-    - [ ] Implement "Magnetic Grid" physics for product sorting.
+- [x] Task: Add GSAP Micro-interactions. 57b970a
+    - [x] Create "Unboxing" and "Fly-to-Cart" animations.
+    - [x] Implement "Magnetic Grid" physics for product sorting.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Spatial E-commerce (3D & AI)' (Protocol in workflow.md) a993ce4
 
 ## Phase 4: Admin Command Center (iOS Aesthetic) [checkpoint: 73020c2]
