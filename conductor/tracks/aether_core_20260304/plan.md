@@ -21,20 +21,20 @@
     - [x] Create Admin login flow with the default credentials.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Authentication & Admin Initialization' (Protocol in workflow.md) e2023df
 
-## Phase 3: Spatial E-commerce (3D & AI)
-- [~] Task: Create the 3D Product Stage (Three.js/R3F).
-    - [ ] Implement 360° rotation and zoom for product models.
-    - [ ] Add hotspot technical specs in glassmorphic bubbles.
-- [ ] Task: Build the "Aether Concierge" (Gemini API).
-    - [ ] Implement Natural Language search portal.
-    - [ ] Integrate Gemini API for curated product recommendations.
+## Phase 3: Spatial E-commerce (3D & AI) [checkpoint: a993ce4]
+- [x] Task: Create the 3D Product Stage (Three.js/R3F). a993ce4
+    - [x] Implement 360° rotation and zoom for product models.
+    - [x] Add hotspot technical specs in glassmorphic bubbles.
+- [x] Task: Build the "Aether Concierge" (Gemini API). a993ce4
+    - [x] Implement Natural Language search portal.
+    - [x] Integrate Gemini API for curated product recommendations.
 - [ ] Task: Add GSAP Micro-interactions.
     - [ ] Create "Unboxing" and "Fly-to-Cart" animations.
     - [ ] Implement "Magnetic Grid" physics for product sorting.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Spatial E-commerce (3D & AI)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Spatial E-commerce (3D & AI)' (Protocol in workflow.md) a993ce4
 
 ## Phase 4: Admin Command Center (iOS Aesthetic)
-- [ ] Task: Develop the Admin Dashboard.
+- [~] Task: Develop the Admin Dashboard.
     - [ ] Create "Live Tile" inventory management with haptic toggles.
     - [ ] Build the "Global Discount Dial" with Socket.io real-time push.
 - [ ] Task: Final Polish & Deployment.
