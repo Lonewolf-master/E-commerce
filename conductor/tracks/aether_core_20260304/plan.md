@@ -9,7 +9,7 @@
     - [x] Implement Zod validation for all data entities.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Data Layer' (Protocol in workflow.md) 007898c
 
-## Phase 2: Authentication & Admin Initialization
+## Phase 2: Authentication & Admin Initialization [checkpoint: e2023df]
 - [x] Task: Implement Custom JWT Authentication. 515d8c9
     - [x] Remove Clerk dependencies and configuration.
     - [x] Update User schema (add password hash field).
@@ -19,7 +19,7 @@
 - [x] Task: Secure Admin Initialization. b04e609
     - [x] Generate default Admin password and store securely in .env.
     - [x] Create Admin login flow with the default credentials.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Authentication & Admin Initialization' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Authentication & Admin Initialization' (Protocol in workflow.md) e2023df
 
 ## Phase 3: Spatial E-commerce (3D & AI)
 - [ ] Task: Create the 3D Product Stage (Three.js/R3F).
