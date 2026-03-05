@@ -4,11 +4,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Mock the clerkAuth middleware
-jest.mock('../middleware/auth', () => ({
-  clerkAuth: (req: any, res: any, next: any) => next(),
-}));
-
 describe('POST /api/admin/login', () => {
   it('should return 200 OK for a valid admin password', async () => {
     const adminPassword = process.env.ADMIN_PASSWORD;

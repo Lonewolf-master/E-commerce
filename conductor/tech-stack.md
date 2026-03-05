@@ -15,7 +15,7 @@
 - **Database:** PostgreSQL for robust product catalogs and transaction management.
 - **ORM:** Drizzle ORM for type-safe database interactions and migrations.
 - **Validation:** Zod for runtime schema validation and data integrity.
-- **Authentication:** Clerk or Auth0 for high-end, secure user management.
+- **Authentication:** Custom JWT Auth (bcrypt + jsonwebtoken) for secure, self-hosted user management.
 
 ## Deployment & Monitoring
 - **Hosting:** Vercel (Frontend) and AWS or Render (Backend).

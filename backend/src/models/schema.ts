@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const userSchema = z.object({
   id: z.number().optional(),
-  clerkId: z.string().min(1, 'Clerk ID is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
   email: z.string().email('Invalid email address'),
   name: z.string().optional(),
   role: z.enum(['user', 'admin']).default('user'),

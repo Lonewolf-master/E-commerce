@@ -4,7 +4,7 @@ describe('Zod Schema Validation', () => {
   describe('userSchema', () => {
     it('should validate a valid user', () => {
       const validUser = {
-        clerkId: 'user_123',
+        password: 'securePassword123',
         email: 'test@example.com',
         name: 'Test User',
         role: 'user',
@@ -15,7 +15,7 @@ describe('Zod Schema Validation', () => {
 
     it('should fail on invalid email', () => {
       const invalidUser = {
-        clerkId: 'user_123',
+        password: 'securePassword123',
         email: 'invalid-email',
       };
       const result = userSchema.safeParse(invalidUser);

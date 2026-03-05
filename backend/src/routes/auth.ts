@@ -32,16 +32,18 @@ router.post('/register', async (req: Request, res: Response) => {
     const hashedPassword = await hashPassword(password);
 
     // Create User
+    console.log('Inserting user into DB:', { email, name });
     await db.insert(users).values({
       email,
       passwordHash: hashedPassword,
       name,
     });
 
+    console.log('User registered successfully');
     res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (error: any) {
+    console.error('Registration Error Details:', error);
+    res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 });
 
