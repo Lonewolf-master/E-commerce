@@ -33,11 +33,11 @@
     - [ ] Implement "Magnetic Grid" physics for product sorting.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Spatial E-commerce (3D & AI)' (Protocol in workflow.md) a993ce4
 
-## Phase 4: Admin Command Center (iOS Aesthetic)
-- [~] Task: Develop the Admin Dashboard.
-    - [ ] Create "Live Tile" inventory management with haptic toggles.
-    - [ ] Build the "Global Discount Dial" with Socket.io real-time push.
-- [ ] Task: Final Polish & Deployment.
-    - [ ] Ensure mobile responsiveness across all core flows.
-    - [ ] Set up CI/CD pipeline and initial deployment.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Admin Command Center (iOS Aesthetic)' (Protocol in workflow.md)
+## Phase 4: Admin Command Center (iOS Aesthetic) [checkpoint: 73020c2]
+- [x] Task: Develop the Admin Dashboard. 73020c2
+    - [x] Create "Live Tile" inventory management with haptic toggles.
+    - [x] Build the "Global Discount Dial" with Socket.io real-time push.
+- [x] Task: Final Polish & Deployment. 73020c2
+    - [x] Ensure mobile responsiveness across all core flows.
+    - [x] Set up CI/CD pipeline and initial deployment.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Admin Command Center (iOS Aesthetic)' (Protocol in workflow.md) 73020c2
